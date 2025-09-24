@@ -1,8 +1,6 @@
 import submissionController from "@/controller/submission.controller";
 import authenticate from "@/middleware/authenticate";
-import authorize from "@/middleware/authorize";
 import validationError from "@/middleware/validationError";
-import { Role } from "@/models/user";
 import { Router } from "express";
 import { body, param } from "express-validator";
 
@@ -12,7 +10,6 @@ const router = Router();
 router.post(
   "/",
   authenticate,
-  authorize([Role.ADMIN]),
   body("problemId").isMongoId().withMessage("Invalid problem ID"),
   body("code").notEmpty().withMessage("Code is required"),
   body("language")

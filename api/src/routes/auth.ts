@@ -35,8 +35,8 @@ router.post(
   body("password")
     .notEmpty()
     .withMessage("Password talab qilinadi")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long"),
+    .isLength({ min: 4 })
+    .withMessage("Password must be at least 4 characters long"),
   body("role")
     .optional()
     .isString()

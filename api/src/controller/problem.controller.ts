@@ -87,7 +87,10 @@ class ProblemController {
           .status(400)
           .json({ error, message: "Problem already exists" });
       }
-      res.status(500).json({ error: "Server error" });
+
+      res.status(500).json({ message: "Server error", error });
+
+      logger.error("Error creating problem.", error);
     }
   }
 

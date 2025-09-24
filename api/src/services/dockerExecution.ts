@@ -169,13 +169,27 @@ async function runDockerTestCase(
       runtime,
     };
 
+  const actualNorm = normalizeOutput(stdout);
+  const expectedNorm = normalizeOutput(testCase.output);
+
   return {
     input: testCase.input,
     expectedOutput: testCase.output,
     actualOutput: stdout.trim(),
-    passed: stdout.trim() === testCase.output.trim(),
+    passed: actualNorm === expectedNorm,
     runtime,
   };
+}
+
+function normalizeOutput(output: string) {
+  let normalized = output.trim();
+
+  try {
+    const parsed = JSON.parse(normalized);
+    return JSON.stringify(parsed);
+  } catch {
+    return normalized.replace(/\s+/g, " ");
+  }
 }
 
 async function ensureImageExists(image: string) {

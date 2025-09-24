@@ -16,12 +16,12 @@ router.get("/:slug", validationError, problemController.getProblem);
 
 // create problem
 router.post(
-  "/create",
+  "/",
   authenticate,
-  authorize([Role.ADMIN]),
+  authorize(["admin"]),
   body("title").notEmpty().withMessage("Title is required"),
   body("question").notEmpty().withMessage("Question is required"),
-  body("level").isIn(["Easy", "Medium", "Hard"]).withMessage("Invalid level"),
+  body("level").isIn(["easy", "medium", "hard"]).withMessage("Invalid level"),
   body("tags").isArray().withMessage("Tags must be array"),
   body("codeStubs").isObject().withMessage("Code stubs required"),
   validationError,

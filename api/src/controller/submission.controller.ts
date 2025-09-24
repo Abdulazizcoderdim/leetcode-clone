@@ -37,6 +37,7 @@ class SubmissionController {
         runtime: executionResult.runtime,
         memory: executionResult.memory,
         results: executionResult.results,
+        language,
       });
 
       await submission.save();

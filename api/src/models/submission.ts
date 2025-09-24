@@ -34,8 +34,6 @@ const SubmissionSchema = new Schema<ISubmission>(
   { timestamps: true }
 );
 
-SubmissionSchema.index({ userId: 1, problemId: 1 }, { unique: true });
-
 export const Submission = mongoose.model<ISubmission>(
   "Submission",
   SubmissionSchema
