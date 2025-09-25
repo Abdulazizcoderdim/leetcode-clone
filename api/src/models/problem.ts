@@ -4,7 +4,7 @@ export interface IProblem extends Document {
   title: string;
   slug: string;
   question: string;
-  level: string;
+  difficulty: string;
   tags: string[];
   codeStubs: {
     python: string;
@@ -25,17 +25,30 @@ const ProblemSchema = new Schema<IProblem>(
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     question: { type: String, required: true },
-    level: { type: String, required: true },
+    difficulty: {
+      type: String,
+      required: true,
+      enum: [
+        "8 kyu",
+        "7 kyu",
+        "6 kyu",
+        "5 kyu",
+        "4 kyu",
+        "3 kyu",
+        "2 kyu",
+        "1 kyu",
+      ],
+    },
     tags: { type: [String], required: true },
     codeStubs: {
-      python: { type: String, required: false },
-      javascript: { type: String, required: false },
-      typescript: { type: String, required: false },
-      java: { type: String, required: false },
-      c: { type: String, required: false },
-      cpp: { type: String, required: false },
-      csharp: { type: String, required: false },
-      kotlin: { type: String, required: false },
+      python: { type: String },
+      javascript: { type: String },
+      typescript: { type: String },
+      java: { type: String },
+      c: { type: String },
+      cpp: { type: String },
+      csharp: { type: String },
+      kotlin: { type: String },
     },
   },
   { timestamps: true }
