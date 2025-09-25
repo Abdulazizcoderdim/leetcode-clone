@@ -2,7 +2,6 @@ import authController from "@/controller/auth.controller";
 import authenticate from "@/middleware/authenticate";
 import validationError from "@/middleware/validationError";
 import { User } from "@/models/user";
-import bcrypt from "bcrypt";
 import { Router } from "express";
 import { body, cookie } from "express-validator";
 
@@ -61,24 +60,7 @@ router.post(
     .notEmpty()
     .withMessage("Password talab qilinadi")
     .isLength({ min: 4 })
-    .withMessage("Password must be at least 4 characters long")
-    .custom(async (value, { req }) => {
-      const { email } = req.body as { email: string };
-      const user = await User.findOne({ email })
-        .select("password")
-        .lean()
-        .exec();
-
-      if (!user) {
-        throw new Error("User email or password is invalid");
-      }
-
-      const passwordMatch = await bcrypt.compare(value, user.password);
-
-      if (!passwordMatch) {
-        throw new Error("User email or password is invalid");
-      }
-    }),
+    .withMessage("Password must be at least 4 characters long"),
   validationError,
   authController.login
 );

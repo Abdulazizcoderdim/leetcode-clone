@@ -7,6 +7,7 @@ import {
 import { logger } from "@/lib/winston";
 import { Token } from "@/models/token";
 import { IUser, User } from "@/models/user";
+import bcrypt from "bcrypt";
 import type { Request, Response } from "express";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 import { Types } from "mongoose";
@@ -16,19 +17,18 @@ class AuthController {
     try {
       type UserData = Pick<IUser, "email" | "password">;
 
-      const { email } = req.body as UserData;
+      const { email, password } = req.body as UserData;
 
       const user = await User.findOne({ email })
         .select("username email password role")
         .lean()
         .exec();
 
-      if (!user) {
-        res.status(404).json({
-          code: "NotFound",
-          message: "User not found",
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(400).json({
+          code: "ValidationError",
+          message: "User email or password is invalid",
         });
-        return;
       }
 
       const accessToken = generateAccessToken(user._id as Types.ObjectId);

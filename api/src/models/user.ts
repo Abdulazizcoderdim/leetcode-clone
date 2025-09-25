@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import mongoose, { Document, Schema, Types } from "mongoose";
 
 export enum Role {
@@ -25,7 +26,16 @@ const UserSchema = new Schema<IUser>(
   { timestamps: true }
 );
 
-// Indexes: tez qidirish uchun
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+    return;
+  }
+
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
 UserSchema.index({ username: 1 });
 UserSchema.index({ email: 1 });
 
