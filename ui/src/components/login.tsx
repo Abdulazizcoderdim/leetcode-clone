@@ -1,4 +1,3 @@
-import { LogoIcon } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,8 +12,8 @@ export default function LoginPage() {
       >
         <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
           <div className="text-center">
-            <Link to="/" aria-label="go home" className="mx-auto block w-fit">
-              <LogoIcon />
+            <Link to="#" aria-label="go home" className="mx-auto block w-fit">
+              <img src="/logo.png" className="h-8" alt="Logo BrainCode" />
             </Link>
             <h1 className="mb-1 mt-4 text-xl font-semibold">
               Sign In to Tailark

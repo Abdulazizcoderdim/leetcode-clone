@@ -1,4 +1,3 @@
-import { LogoIcon } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,40 +6,29 @@ import { Link } from "react-router-dom";
 export default function SignUpPage() {
   return (
     <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
-      <form
-        action=""
-        className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
-      >
+      <form className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
         <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
           <div className="text-center">
-            <Link to="/" aria-label="go home" className="mx-auto block w-fit">
-              <LogoIcon />
+            <Link to="#" aria-label="go home" className="mx-auto block w-fit">
+              <img src="/logo.png" className="h-8" alt="Logo BrainCode" />
             </Link>
             <h1 className="mb-1 mt-4 text-xl font-semibold">
-              Create a Tailark Account
+              Create a BrainCode Account
             </h1>
             <p className="text-sm">Welcome! Create an account to get started</p>
           </div>
 
           <div className="mt-6 space-y-6">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label htmlFor="firstname" className="block text-sm">
-                  Firstname
-                </Label>
-                <Input type="text" required name="firstname" id="firstname" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastname" className="block text-sm">
-                  Lastname
-                </Label>
-                <Input type="text" required name="lastname" id="lastname" />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="username" className="block text-sm">
+                Username
+              </Label>
+              <Input type="username" required name="username" id="username" />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="email" className="block text-sm">
-                Username
+                Email
               </Label>
               <Input type="email" required name="email" id="email" />
             </div>

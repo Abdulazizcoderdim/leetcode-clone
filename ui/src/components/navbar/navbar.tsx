@@ -93,7 +93,7 @@ const Navbar = () => {
                   size="sm"
                   className={cn(isScrolled && "lg:hidden")}
                 >
-                  <Link to="#">
+                  <Link to="/login">
                     <span>Login</span>
                   </Link>
                 </Button>
@@ -102,7 +102,7 @@ const Navbar = () => {
                   size="sm"
                   className={cn(isScrolled && "lg:hidden")}
                 >
-                  <Link to="#">
+                  <Link to="/signup">
                     <span>Sign Up</span>
                   </Link>
                 </Button>
@@ -111,7 +111,7 @@ const Navbar = () => {
                   size="sm"
                   className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
                 >
-                  <Link to="#">
+                  <Link to="/login">
                     <span>Get Started</span>
                   </Link>
                 </Button>
