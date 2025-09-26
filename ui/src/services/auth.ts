@@ -4,6 +4,7 @@ import type { AxiosRequestConfig } from "axios";
 export type Role = "user" | "admin";
 
 export interface IUser {
+  _id: string;
   username: string;
   email: string;
   password: string;
@@ -107,14 +108,14 @@ class AuthService {
 
   async makeAuthenticatedRequest<T = any>(
     url: string,
-    options: AxiosRequestConfig
+    options?: AxiosRequestConfig
   ): Promise<T> {
     try {
       const response = await $axios({
         url,
         ...options,
         headers: {
-          ...(options.headers || {}),
+          ...(options?.headers || {}),
           Authorization: `Bearer ${this.accessToken}`,
         },
       });

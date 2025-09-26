@@ -1,13 +1,43 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function LoginPage() {
+  const [formData, setFormData] = useState<{ email: string; password: string }>(
+    {
+      email: "",
+      password: "",
+    }
+  );
+  const { login, loading } = useAuth();
+
+  const hadnleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await login(formData.email, formData.password);
+
+      console.log(formData);
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
+      console.log(error);
+    }
+  };
+
   return (
     <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
       <form
-        action=""
+        onSubmit={handleSubmit}
         className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
       >
         <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
@@ -24,9 +54,16 @@ export default function LoginPage() {
           <div className="mt-6 space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="block text-sm">
-                Username
+                Email
               </Label>
-              <Input type="email" required name="email" id="email" />
+              <Input
+                value={formData.email}
+                onChange={hadnleChange}
+                type="email"
+                required
+                name="email"
+                id="email"
+              />
             </div>
 
             <div className="space-y-0.5">
@@ -44,15 +81,19 @@ export default function LoginPage() {
                 </Button>
               </div>
               <Input
+                value={formData.password}
+                onChange={hadnleChange}
                 type="password"
                 required
-                name="pwd"
-                id="pwd"
+                name="password"
+                id="password"
                 className="input sz-md variant-mixed"
               />
             </div>
 
-            <Button className="w-full">Sign In</Button>
+            <Button disabled={loading} className="w-full">
+              {loading ? "Loading..." : "Sign In"}
+            </Button>
           </div>
 
           <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -90,6 +131,7 @@ export default function LoginPage() {
               </svg>
               <span>Google</span>
             </Button>
+
             <Button type="button" variant="outline">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,9 +157,9 @@ export default function LoginPage() {
 
         <div className="p-3">
           <p className="text-accent-foreground text-center text-sm">
-            Don't have an account ?
+            Don't have an account?
             <Button asChild variant="link" className="px-2">
-              <Link to="#">Create account</Link>
+              <Link to="/signup">Create account</Link>
             </Button>
           </p>
         </div>
